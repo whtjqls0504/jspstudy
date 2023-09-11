@@ -72,6 +72,10 @@
 		    /* 응답 */
 		    dataType: 'json',
 		    success : function(resData){
+		      var str = '';
+		      str += '<h4>' + resData.title + '</h4>';
+		      str += '<h4>' + resData.writer + '</h4>';
+		      $('#content2').html(str);
 		      
 		    },
 		    error : function (jqXHR) {

@@ -1,6 +1,8 @@
 package ex06_ajax;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,8 +43,19 @@ public class JSONServlet extends HttpServlet {
 	  responseJSON.put("title", title);
 	  responseJSON.put("writer", writer);
 	  
-	  System.out.println(responseJSON.toString());
 	  // 4. 응답 데이터 타입과 인코딩
+	  response.setContentType("application/json; charset=UTF-8");
+	  
+	  // 5. 응답 스트림 생성
+	  
+	  PrintWriter out = response.getWriter();
+	  
+	  // 6. 응답
+	  out.println(responseJSON);
+	  out.flush();
+	  out.close();
+	
+	  String str = "{\"writer\":\"" + writer + "\", \"age\":"
 	}
 
 	/**
