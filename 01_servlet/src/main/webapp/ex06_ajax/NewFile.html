@@ -31,8 +31,11 @@
         data : 'name=' + $('#name').val() + '&age=' + $('#age').val(),
         /* 응답 */
         dataType : 'xml',
-        success: function (resData) {
-          
+        success: function (resData) {	// resData는 <person><name>alice</name><age>30</age></person> 형태이다.
+          var ul = $('<ul>');
+          ul +=	'<li>' + $(resData).find('name').text() + '</li>';
+          ul += '<li>' + $(resData).find('age').text() + '</li>';
+        	$('#content1').html(ul);
         },
         error: function (jqXHR) {
           alert(jqXHR.status + '(' + jqXHR.statusText + ')');
@@ -40,6 +43,42 @@
         
       })
 		  
+    })
+	</script>
+	<hr>
+	<div>
+		<form id="frm">
+			<div>
+				<input type="text" name="title" placeholder="제목">
+			</div>
+			<div>
+				<input type="text" name="writer" placeholder="작성자">
+			</div>
+			<div>
+				<button type="button" id="btn2">JSON요청</button>
+			</div>
+		</form>
+		<div id="content2"></div>
+	</div>
+	
+	<script>
+		$('#btn2').click(function () {
+		  $.ajax({
+		  	/* 요청 */
+		    type : 'get',
+		    url : '/servlet/getJSON',
+		    data : $('#frm').serialize(), 	// <form> 태그의 모든 입력 요소들을 파라미터로 보낸다.이 때 입력 요소들은 name 속성을 가지고 있어야 한다.
+		  
+		    /* 응답 */
+		    dataType: 'json',
+		    success : function(resData){
+		      
+		    },
+		    error : function (jqXHR) {
+		      alert(jqXHR.status + '(' + jqXHR.statusText +')');
+        }
+		  })
+      
     })
 	</script>
 </body>

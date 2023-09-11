@@ -1,11 +1,16 @@
 package ex06_ajax;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
+import org.json.XML;
 
 /**
  * Servlet implementation class XMLServlet
@@ -39,8 +44,37 @@ public class XMLServlet extends HttpServlet {
 	    age = Integer.parseInt(strAge);
 	    // strAge가 비어있지 않다면 age값을 정수값으로 변환
 	  }
-	  System.out.println(name + ", " + age);
+	  // 3. XML 만들기
+	  /*
+	   * {"person": {"name" : "alice", "age" : 30}}를 생성한 뒤 XML 태그 형식으로 변환
+	   * <?xml version="1.0" encoding="UTF-8"?>
+	   * <person>
+	   *   <name>alice</name>
+	   *   <age>30</age>
+	   * </person>
+	   */
+
 	  
+	  JSONObject person = new JSONObject();
+	  person.put("name", name);
+	  person.put("age", age);
+	  
+	  JSONObject resJSON = new JSONObject();
+	  resJSON.put("person", person);
+	  
+	  String responseXML = XML.toString(resJSON);
+	  
+	  // 4. 응답 데이터 타입과 인코딩
+	  response.setContentType("applicatin/xml; charset=UTF-8");
+	  
+	  // 5. 응답 스트림 생성
+	  PrintWriter out = response.getWriter();
+	  
+	  // 6. 응답
+	  out.println(responseXML);      // $.ajax({success : function(resData){}...})
+	  
+	  out.flush();
+	  out.close();
 	}
 
 	/**
