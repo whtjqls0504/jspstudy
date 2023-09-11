@@ -10,13 +10,16 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   
-  <!-- 서블릿의 URLMapping 바꾸기-->
+  
+  <!-- 서블릿의 URLMapping 바꾸기 -->
   <servlet>
-  	<servlet-name>channel</servlet-name>
-  	<servlet-class>ex01_lifecycle/HelloServlet</servlet-class>
+    <servlet-name>channel</servlet-name>
+    <servlet-class>ex01_lifecycle.HelloServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>channel</servlet-name>
-  	<url-pattern>/hello</url-pattern>
+    <servlet-name>channel</servlet-name>
+    <url-pattern>/hello</url-pattern>
   </servlet-mapping>
+
+
 </web-app>
