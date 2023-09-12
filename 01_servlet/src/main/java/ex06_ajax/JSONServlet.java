@@ -55,7 +55,6 @@ public class JSONServlet extends HttpServlet {
 	  out.flush();
 	  out.close();
 	
-	  String str = "{\"writer\":\"" + writer + "\", \"age\":"
 	}
 
 	/**
