@@ -31,6 +31,7 @@ public class Redirect2 extends HttpServlet {
 	  request.setCharacterEncoding("UTF-8");
 	  
 	  // 2. 요청 파라미터
+	  // Redirect1 파일의 요청 파라미터를 해당 파일에서 받은것.
 	  String name = request.getParameter("name");
 	  
 	  System.out.println("redirect: " + name);
