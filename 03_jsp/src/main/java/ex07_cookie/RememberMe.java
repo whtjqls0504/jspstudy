@@ -44,7 +44,7 @@ public class RememberMe extends HttpServlet {
 	    cookie = new Cookie("remember_me", id);
 	    cookie.setMaxAge(60 * 60 * 24 * 15);     // 15일간 쿠키 유지 
 	  } else {
-	    cookie = new Cookie("remember_id", "");
+	    cookie = new Cookie("remember_me", "");
 	    cookie.setMaxAge(0);                     // 쿠키 삭제를 위해 0초간 쿠키 유지
 	  }
 	  

@@ -8,16 +8,23 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script>
-  // <body> 태그를 모두 읽은 뒤 function(){}을 실행한다.
-  $(function(){
-    $('#btn_logout').click(function(){
-      location.href = '${contextPath}/logout';
-    })
-  })
-</script>
 </head>
 <body>
+
+<%
+String remember_me = "";		// 쿠키 remember_me가 없으면 빈 문자열("")을 사용하기 위해서 초기화를 진행함.
+	Cookie[] cookies = request.getCookies();
+	if(cookies != null){
+	  for(int i=0; i<cookies.length; i++){
+	    if(cookies[i].getName().equals("remember_me")){
+	      remember_me = cookies[i].getValue();
+	      break;
+	    }
+	      
+	  }
+	}
+	pageContext.setAttribute("remember_me", remember_me);
+%>
 
 <%-- 로그인 안 된 상태 --%>
   <div>
@@ -40,7 +47,15 @@
     </form>
   </div>
 
-
+<script>
+  // <body> 태그를 모두 읽은 뒤 function(){}을 실행한다.
+	$(function () {
+    if('${remember_me}' !== ''){
+      $('#id').val('${remember_me}');
+      $('#remember_me').prop('checked', true)
+    }
+  })
+</script>
 
 
 
