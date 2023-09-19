@@ -54,8 +54,8 @@ public class MvcController extends HttpServlet {
     case "/getAbs.do":
       mvcService.getAbs(request, response);
       break;
-    case  "/getInfo.do" :
-      mvcService.getInfo(request);
+    case "/getInfo.do":
+      af = mvcService.getInfo(request);
       break;
     }
     

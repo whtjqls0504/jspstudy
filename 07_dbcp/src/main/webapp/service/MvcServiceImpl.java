@@ -38,11 +38,10 @@ public class MvcServiceImpl implements MvcService {
     out.flush();
     out.close();
     
-  }
-  
+  }  
+
   @Override
   public ActionForward getInfo(HttpServletRequest request) {
-    
     String name = request.getParameter("name");
     int age = Integer.parseInt(request.getParameter("age"));
     String gender = request.getParameter("gender");
@@ -53,11 +52,8 @@ public class MvcServiceImpl implements MvcService {
     vo.setAge(age);
     vo.setGender(gender);
     vo.setHobbies(hobbies);
-    
-    request.setAttribute("vo", vo);
-    
     return new ActionForward("views/info.jsp", false);
-    
   }
+  
   
 }

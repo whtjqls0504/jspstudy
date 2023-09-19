@@ -3,6 +3,7 @@ package filter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -47,18 +48,17 @@ public class BoardFilter extends HttpFilter implements Filter {
 	  // 요청 인코딩
 	  req.setCharacterEncoding("UTF-8");
 	  
-	  // 요청 주소 확인
-	  System.out.println(req.getRequestURI());
-	  
-	  // 요청 파라미터 확인
-	  Map<String, String[]> map = req.getParameterMap();
-	  for(java.util.Map.Entry<String, String[]> entry : map.entrySet()) {
-	    System.out.println(entry.getKey() + ":" + Arrays.toString(entry.getValue()));
-	  }
-	  
+    // 요청 주소 확인
+    System.out.println(req.getRequestURI());
+    
+    // 요청 파라미터 확인
+    Map<String, String[]> map = req.getParameterMap();
+    for(Entry<String, String[]> entry : map.entrySet()) {
+      System.out.println(entry.getKey() + ":" + Arrays.toString(entry.getValue()));
+    }
 
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
+    // pass the request along the filter chain
+    chain.doFilter(request, response);
 	}
 
 	/**
