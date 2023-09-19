@@ -1,4 +1,4 @@
-package common;
+package vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ActionForward {
-  private String path;
-  private boolean isRedirect;
+public class UserVo {
+  private String name;
+  private int age;
+  private String gender;
+  private String[] hobbies;
 }
