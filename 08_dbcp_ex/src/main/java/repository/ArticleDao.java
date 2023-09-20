@@ -11,6 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import domain.ArticleDto;
 import domain.BoardDto;
 
 public class BoardDao {
@@ -51,7 +52,7 @@ public class BoardDao {
   }
   
   // 게시글 등록 메소드
-  public int register(BoardDto dto) {
+  public int register(ArticleDto dto) {
     
     // 등록 결과 선언 (insert 실행 결과는 삽입된 행의 개수이다.)
     int insertResult = 0;
@@ -88,7 +89,7 @@ public class BoardDao {
   }
   
   // 게시글 개수 반환 메소드
-  public int getBoardCount() {
+  public int getArticleCount() {
     
     // 게시글 개수
     int count = 0;
@@ -117,10 +118,10 @@ public class BoardDao {
   }
   
   // 게시글 목록 반환 메소드
-  public List<BoardDto> getBoardList(Map<String, Object> map){
+  public List<ArticleDto> getBoardList(Map<String, Object> map){
     
     // 게시글 목록 저장 List
-    List<BoardDto> list = new ArrayList<BoardDto>();
+    List<ArticleDto> list = new ArrayList<ArticleDto>();
     
     try {
       
@@ -135,7 +136,7 @@ public class BoardDao {
       rs = ps.executeQuery();
       while(rs.next()) {
         // rs -> BoardDto
-        BoardDto dto = BoardDto.builder()
+        ArticleDto dto = ArticleDto.builder()
                         .board_no(rs.getInt(1))
                         .title(rs.getString(2))
                         .content(rs.getString(3))
@@ -158,9 +159,9 @@ public class BoardDao {
   }
   
   // 게시글 반환 메소드
-  public BoardDto getBoardByNo(int board_no) {
+  public ArticleDto getBoardByNo(int board_no) {
     // 게시글 
-    BoardDto dto = null;
+    ArticleDto dto = null;
     
     try {
       con = dataSource.getConnection();
@@ -192,7 +193,7 @@ public class BoardDao {
   }
    
   // 게시글 수정 메소드
-  public int modify(BoardDto dto) {
+  public int modify(ArticleDto dto) {
     // 수정 결과
     int modifyResult = 0;
     
