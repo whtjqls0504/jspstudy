@@ -8,5 +8,6 @@ public interface BoardService {
 
 
     public ActionForward register(HttpServletRequest request);
-  
+    public ActionForward getBoardList(HttpServletRequest request);
+    public ActionForward getBoardByNo(HttpServletRequest request);
 }
