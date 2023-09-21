@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mybatis.mapper.book">
+	
+	<!-- BookDao의 전체 개수 반환 메소드를 연결하는 select 태그 -->
+	<select id="bookCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM BOOK_T;
+		  
+	</select>
+	
+	<select id="bookDetail" parameterType="int" resultType="domain.BookDto">
+		SELECT BOOK_NO, TITLE, AUTHOR, PRICE, PUBDATE
+		  FROM BOOK_T
+		 WHERE BOOK_NO = #{bookNo}
+	</select>
+	
+	<insert id="bookAdd" parameterType="domain.BookDto">
+		INSERT INTO BOOK_T (
+				 BOOK_NO 
+			 , TITLE
+			 , AUTHOR
+			 , PRICE
+			 , PUBDATE
+		) VALUES (
+				 BOOK_SEQ.NEXTVAL
+			 , #{title}
+			 , #{author}
+			 , #{price}
+			 , SYSDATE
+		)
+	</insert>
+	
+	<!-- 수정 메소드 -->
+	<update id="bookModify" parameterType="domain.BookDto">
+		UPDATE BOOK_T
+		   SET TITLE = #{title}
+		     , AUTHOR = #{author}
+		     , PRICE = #{price}
+		 WHERE BOOK_NO = #{bookNo}
+	</update>
+	
+	
+	<!-- 삭제 메소드 -->
+	<delete id="bookDelete" parameterType="domain.BookDto">
+	DELETE 
+		 SET BOOK_T
+	 WHERE 
+		
+	</delete>
+	
+	<!-- 목록을 가져오는 쿼리문 작성하기. -->
+	<!-- BookDao의 parameter 값을 Map으로 지정해주자.(BookDao-> book.xml) -->
+	<!-- resultType으로 BookDto를 반환하자. -->
+	<select id="bookList" parameterType="Map" resultType="domain.BookDto">
+		SELECT A.BOOK_NO, A.TITLE, A.AUTHOR, A.PRICE, A.PUBDATE
+		  FROM (SELECT BOOK_NO, TITLE, AUTHOR, PRICE, PUBDATE, ROW_NUMBER() OVER(ORDER BY BOOK_NO DESC) AS RN
+					 FROM BOOK_T) A 
+		 WHERE A.RN BETWEEN #{begin} AND #{end}
+	</select>
+	<!-- BookDao가 이 book.xml을 부르기 위해서는 ID가 필요하다. -->
+	<!-- begin과 end 계산 전에 갯수를 계산하는 함수가 있었어야함. -->
+</mapper>
