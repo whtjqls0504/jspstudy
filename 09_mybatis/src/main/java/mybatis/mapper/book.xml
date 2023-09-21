@@ -12,12 +12,15 @@
 		  
 	</select>
 	
+	<!-- 상세 메소드 -->
 	<select id="bookDetail" parameterType="int" resultType="domain.BookDto">
 		SELECT BOOK_NO, TITLE, AUTHOR, PRICE, PUBDATE
 		  FROM BOOK_T
 		 WHERE BOOK_NO = #{bookNo}
 	</select>
 	
+	
+	<!-- 등록 메소드 -->
 	<insert id="bookAdd" parameterType="domain.BookDto">
 		INSERT INTO BOOK_T (
 				 BOOK_NO 
