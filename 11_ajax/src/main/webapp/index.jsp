@@ -15,6 +15,9 @@ $(function(){
   fnInit();
   fnMemberAdd();
   fnEmailCheck();
+  fnMemberDetail();
+  fnMemberModify();
+  fnMemberDelete();
 })
 
 function fnMemberList() {  
@@ -64,6 +67,7 @@ function fnInitDetail() {
   $('#name').val('');
   $('#none').prop('checked', true);
   $('#address').val('');
+	$('#msg_email').text('');
 }
 
 
@@ -120,6 +124,7 @@ function fnEmailCheck(){
 	
 	function fnMemberDetail() {
 	 $(document).on('click', '.btn_detail', function () {
+	   alert('아무거나');
 	   $.ajax({
 	     type: 'get',
 	     url : '${contextPath}/member/detail.do',
@@ -131,19 +136,62 @@ function fnEmailCheck(){
         	$('#name').val(obj.member.name);
         	$(':radio[name=gender][value=' + obj.member.gender + ']').prop('checked', true);	//
         	$('#address').val(obj.member.address);
+        	$('#memberNo').val(obj.member.memberNo);
       }
 	   })
 	   
 	}) 
 	}
 
+	function fnMemberModify() {
+    $('#btn_modify').click(function() {
+      $.ajax({
+        type : 'post',
+        url : '${contextPath}/member/modify.do',
+        data : $('#frm_member').serialize(), // 전달할 값이 많다면 form을 사용하라.
+        dataType : 'text',
+        success : function (resData) {				// resData === '{"modifyResult" : 1}'
+          var obj = JSON.parse(resData);			//		 obj === {"modifyResult":1}
+        	if(obj.modifyResult == 1){
+        	  alert('회원 정보가 수정되었습니다.');
+        	  fnMemberList();
+        	} else {
+        	  alert('회원 정보 수정이 실패했습니다.');
+        	}
+        }
+      })
+    })
+  }
 
-
-
+function fnMemberDelete() {
+  $('#btn_delete').click(function() {
+    if(!confirm('회원정보를 삭제할까요?')){
+				return;
+    }
+    $.ajax({
+      type : 'get',
+      url : '${contextPath}/member/delete.do',
+      data : 'memberNo=' + $('#memberNo').val(),
+      dataType : 'text',
+      success : function(resData) {	 		// resData === '{"deleteResult":1}'
+        var obj = JSON.parse(resData);	// 		 obj === {"deleteResult": 1}
+      	if(obj.deleteResult == 1){
+      	  alert('회원 정보가 삭제 되었습니다.');
+      	  fnMemberList();
+      	} else {
+      	 	alert('회원 정보 삭제가 실패했습니다.');
+      	}
+      }
+      
+    })
+  })
+}
 
 
 </script>
 </head>
+
+
 <body>
 	<div class="wrap">
 		<form id="frm_member">
@@ -169,6 +217,7 @@ function fnEmailCheck(){
 				<input type="text" name="address" id="address">
 			</div>
 			<div>
+				<input type="hidden" name="memberNo" id="memberNo">
 				<button type="button" id="btn_init">입력초기화</button>
 				<button type="button" id="btn_add">회원신규등록</button>
 				<button type="button" id="btn_modify">회원정보수정</button>

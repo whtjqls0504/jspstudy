@@ -38,12 +38,12 @@ public class MemberServiceImpl implements MemberService {
   
   @Override
   public void memberAdd(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        MemberDto dto = MemberDto.builder()
-            .email(request.getParameter("email"))
-            .name(request.getParameter("name"))
-            .gender(request.getParameter("gender"))
-            .address(request.getParameter("address"))
-            .build();
+    MemberDto dto = MemberDto.builder()
+                    .email(request.getParameter("email"))
+                    .name(request.getParameter("name"))
+                    .gender(request.getParameter("gender"))
+                    .address(request.getParameter("address"))
+                    .build();
     int addResult = dao.memberAdd(dto);
     
     JSONObject obj = new JSONObject();    // { }
@@ -87,5 +87,40 @@ public class MemberServiceImpl implements MemberService {
     out.close();
   }
   
+  @Override
+  public void memberModify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    MemberDto dto = MemberDto.builder()
+        .email(request.getParameter("email"))
+        .name(request.getParameter("name"))
+        .gender(request.getParameter("gender"))
+        .address(request.getParameter("address"))
+        .memberNo(Integer.parseInt(request.getParameter("memberNo")))
+        .build();
+    
+    int modifyResult = dao.memberModify(dto);
+    
+    JSONObject obj = new JSONObject();  // { }
+    obj.put("modifyResult", modifyResult);  // {"modifyResult":1}
+  
+    PrintWriter out = response.getWriter();
+    out.println(obj.toString());
+    out.flush();
+    out.close();
+    
+  }
+  
+  @Override
+  public void memberDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+    
+    int deleteResult = dao.memberDelete(memberNo);
+    JSONObject obj = new JSONObject();        // { }
+    obj.put("deleteResult", deleteResult);    // {"deleteResult" : 1}
+  
+    PrintWriter out = response.getWriter();
+    out.println(obj.toString());
+    out.flush();
+    out.close();
+  }
   
 }

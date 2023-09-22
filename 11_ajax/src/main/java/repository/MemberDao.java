@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import domain.MemberDto;
+import oracle.security.o5logon.d;
 
 public class MemberDao {
 
@@ -61,15 +62,26 @@ public class MemberDao {
     return dto;
   }
   
+  public int memberModify(MemberDto dto) {
+    SqlSession ss = factory.openSession(false);
+    int modifyResult = ss.update(NS + "memberModify", dto);
+    if(modifyResult == 1) {
+      ss.commit();
+    }
+    ss.close();
+    return modifyResult;
+  }
   
-  
-  
-  
-  
-  
-  
-  
-  
+  public int memberDelete(int memberNo) {
+    SqlSession ss = factory.openSession(false);
+    int deleteResult = ss.delete(NS + "memberDelete", memberNo);
+    if(deleteResult == 1) {
+      ss.commit();
+    }
+    ss.close();
+    return deleteResult;
+  }
+
   
   
 }
