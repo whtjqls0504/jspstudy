@@ -7,7 +7,6 @@
 	
 		<!-- 설정 -->
 	<settings>
-		<!-- 얘는 놔두기. -->
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 	
@@ -25,8 +24,9 @@
 	</environments>
 	
 	<!-- 매퍼 설정(매퍼의 위치와 이름) -->
+	<!-- Mapper는 쿼리문을 저장하는 장소이다. Table의 이름을 따라간다.  -->
 	<mappers>
-		<mapper resource="repository/member.xml"/>
+		<mapper resource="mybatis/mapper/book.xml"/>
 	</mappers>
 	
 
